@@ -4,6 +4,8 @@ this project is created using react, and has these components
 
 `Button`, `Functions`, `MathOperations`, `Number`, `Result`
 
+![](https://i.imgur.com/GigLTeh.jpg)
+
 ## Button
 
 The Button component is in charge of receiving the type of the button, the type of function from (text) and the click event
