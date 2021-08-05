@@ -1,70 +1,121 @@
-# Getting Started with Create React App
+# Calculator App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+this project is created using react, and has these components
 
-## Available Scripts
+`Button`, `Functions`, `MathOperations`, `Number`, `Result`
 
-In the project directory, you can run:
+## Button
 
-### `npm start`
+The Button component is in charge of receiving the type of the button, the type of function from (text) and the click event
+``` bash
+const Button = ({ type, text, clickHandler }) => (
+  <button className={type} onClick={() => clickHandler(text)}>
+    <span>{text}</span>
+  </button>
+);
+```
+## Result
+The Result component shows the value of the number that the user presses
+``` bash
+const Result = ({ value }) => <div className="result">{value}</div>;
+);
+```
+## Numbers
+The Number component is responsible for displaying the numbers from 1-9
+using the button component
+``` bash
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+const renderButtons = (onClickNumber) => {
+  const renderButton = (number) => (
+    <Button
+      key={number}
+      text={number.toString()}
+      clickHandler={onClickNumber}
+    />
+  );
+  return numbers.map(renderButton);
+};
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+const Numbers = ({ onClickNumber }) => (
+  <section className="numbers">{renderButtons(onClickNumber)}</section>
+);
+);
+```
+## Functions
+The Functions component consists of two buttons. The "CE" button will delete the entire content of the result and the "& larr" button will delete the last element of the result.
+``` bash
+const Functions = ({ onContentClear, onDelete }) => (
+  <section className="functions">
+    <Button type="button-long-text" text="CE" clickHandler={onContentClear} />
+    <Button type="button-long-text" text="&larr;" clickHandler={onDelete} />
+  </section>
+);
+```
+## MathOperations
+The MathOperations component receives the type of mathematical operation to be performed when pressing the "=" button
+``` bash
+const MathOperations = ({ onClickOperation, onClickEqual }) => (
+  <section className="math-operations">
+    <Button text="+" clickHandler={onClickOperation} />
+    <Button text="-" clickHandler={onClickOperation} />
+    <Button text="*" clickHandler={onClickOperation} />
+    <Button text="/" clickHandler={onClickOperation} />
+    <Button text="=" clickHandler={onClickEqual} />
+  </section>
+);
+```
+## App
+the app manages the operation of the application by firing the props and executing functions depending on the events where the user clicks
+```bash
+const App = () => {
+  const [stack, setStack] = useState("");
+  const items = words(stack, /[^-^+^*^/]+/g);
+  const value = items.length > 0 ? items[items.length - 1] : "0";
 
-### `npm test`
+  return (
+    <main className="react-calculator">
+      <Result value={value} />
+      <Numbers
+        onClickNumber={(number) => {
+          console.log("Numbers", number);
+          setStack(`${stack}${number}`);
+        }}
+      />
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+      <Functions
+        onContentClear={() => {
+          setStack("");
+        }}
+        onDelete={() => {
+          if (stack.length > 0) {
+            const newStack = stack.substring(0, stack.length - 1);
+            setStack(newStack);
+          }
+        }}
+      />
 
-### `npm run build`
+      <MathOperations
+        onClickOperation={(operation) => {
+          console.log("Operation: ", operation);
+          setStack(`${stack}${operation}`);
+        }}
+        onClickEqual={(equal) => {
+          console.log("Equeal:", equal);
+          setStack(eval(stack).toString());
+        }}
+      />
+    </main>
+  );
+};
+```
+## Installation
+clone the repository then run `npm install` and `npm run start`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Author
+Khristian Yazid ALi
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Twitter: [@khr_yazid](https://twitter.com/khr_yazid)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Website: [khyazid.codes](https://khyazid.codes/)
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
