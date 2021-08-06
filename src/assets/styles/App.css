@@ -9,8 +9,11 @@ body {
 }
 
 body {
-  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   user-select: none;
+  margin: 0;
 }
 
 .react-calculator {
