@@ -6,8 +6,6 @@ body {
   background-image: linear-gradient(to bottom right, #7a5cff 0%, #3cd644 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
-  font-size: 62.5%;
-  box-sizing: border-box;
 }
 
 body {
@@ -30,8 +28,8 @@ body {
 button {
   outline: none;
   border: 0;
-  padding: 1.6rem;
-  font-size: 2.0rem;
+  padding: 16px;
+  font-size: 20px;
   line-height: 1;
   background-color: transparent;
   color: #ffce5c;
@@ -46,7 +44,7 @@ button:hover {
 
 .result {
   position: relative;
-  width: 32rem;
+  width: 320px;
   height: 80px;
   padding: 8px;
   overflow: hidden;
